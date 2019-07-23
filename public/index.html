@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Northside Youth League Soccer</title>
+    <!--    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="shortcut icon" href="Images/nysl_ico_60.png" sizes="60x60">
+    <link rel="shortcut icon" href="Images/nysl_ico_76.png" sizes="76x76">
+    <link rel="shortcut icon" href="Images/favicon.png" sizes="128x128">
+    <link rel="shortcut icon" href="Images/nysl_ico_132.png" sizes="132x132">
+    <link rel="shortcut icon" href="Images/nysl_ico_120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="apple-touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="Images/nysl_ico_76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="Images/nysl_ico_120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="Images/nysl_ico_132.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel='stylesheet' id='line-awesome-css' href='//maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css?ver=1.0.4' type='text/css' media='all' />
+    <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="divGamesInfo">
+            <header>
+                <div class="menu-wrap">
+                    <input type="checkbox" class="toggler">
+                    <div class="hamburger">
+                        <div></div>
+                    </div>
+                    <div class="menu">
+                        <div>
+                            <div>
+                                <ul>
+                                    <li><a @click="cambiarVista('mostrarPartidos')" href="#"><i class="fa fa-home"></i> HOME</a></li>
+                                    <li><a @click="cambiarVista('mostrarPartidos')" href="#"><i class="fa fa-calendar"></i> GAMES INFO</a></li>
+                                    <li><a @click="cambiarVista('chat')" href="#"><i class="fa fa-wechat"></i> CHAT</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header><br><br><br><br>
+            <div class="btn-chat" id="livechat-compact-container" style="visibility: visible; opacity: 1;">
+                <div class="btn-holder">
+                    <a @click="cambiarVista('chat')" class="link">Global Chat <i class="fa fa-wechat"></i></a>
+                </div>
+            </div>
+
+
+            <div v-for="partido in partidos">
+                <div v-show="objeto['mostrarPartidos']">
+                    <div class="wrapper" id="divsTabla">
+                        <div>
+                            <img class="imagenesTabla" v-bind:src="partido.escudo_equipo_local">
+                            <div>
+                                <p class="titGameInfo">{{partido.equipo_local}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="hora"><i class="fa fa-clock-o" aria-hidden="true"></i>{{partido.hora}}</p>
+                            <button class="location"><a @click="cambiarVista(`partido${partido.id}`)" class="botLocation" alt=""><i class="fa fa-map-marker" aria-hidden="true"></i> Location </a></button>
+                        </div>
+                        <div>
+                            <img class="imagenesTabla" v-bind:src="partido.escudo_equipo_visitante">
+                            <p class="titGameInfo">{{partido.equipo_visitante}}</p>
+                        </div>
+                    </div>
+                    <p class="fecha">{{partido.fecha}}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="bodys">
+            <header>
+                <div class="menu-wrap">
+                    <input type="checkbox" class="toggler">
+                    <div class="hamburger">
+                        <div></div>
+
+                    </div>
+
+                    <div class="menu">
+
+                        <div>
+                            <div>
+                                <ul>
+                                    <li><a @click="cambiarVista('mostrarPartidos')" href="#"><i class="fa fa-home"></i> HOME</a></li>
+                                    <li><a @click="cambiarVista('mostrarPartidos')" href="#"><i class="fa fa-calendar"></i> GAMES INFO</a></li>
+                                    <li><a @click="cambiarVista('chat')" href="#"><i class="fa fa-wechat"></i> CHAT</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </header>
+
+            <div v-for="ubicacion in partidos" v-show="objeto['partido' + ubicacion.id]">
+
+                <a @click="cambiarVista('mostrarPartidos')" href="#" class="brk-btn">Go Back</a><br><br>
+                <div class="partidoLocations">
+                    <div id="divsTablaLocation" class="wrapper">
+                        <div>
+                            <img class="imagenesTabla" v-bind:src="ubicacion.escudo_equipo_local">
+                            <p class="titGameInfo">{{ubicacion.equipo_local}}</p>
+                        </div>
+                        <div>
+                            <p class="hora"><i class="fa fa-clock-o" aria-hidden="true"></i>{{ubicacion.hora}}</p>
+                        </div>
+                        <div>
+                            <img class="imagenesTabla" v-bind:src="ubicacion.escudo_equipo_visitante">
+                            <p class="titGameInfo">{{ubicacion.equipo_visitante}}</p>
+                        </div>
+                    </div>
+                    <p class="fecha">{{ubicacion.fecha}}</p>
+                </div>
+                <div class="mapaLocation">
+                    <div>
+                        <div>
+                            <p class="nombreCampo">{{ubicacion.nombre_estadio}}</p>
+                            <p class="direccionCampo">{{ubicacion.direccion_estadio}}</p>
+                        </div> <br>
+
+
+                        <iframe v-bind:src="ubicacion.mapa_estadio" class="mapa"></iframe><br><br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div v-show="objeto['chat']">
+            <a @click="cambiarVista('mostrarPartidos')" href="#" class="brk-btn">Go Back</a><br><br>
+            <button id="signIn" @click="login()">Sign in with <i class="fa fa-google" aria-hidden="true"></i></button>
+            <button id="signIn" @click="logout()">Sign out </button><br><br>
+            <div id="chat" class="fondoChat">
+                <div class="divChat" id="mensajesChat"><br>
+
+               
+
+</div>
+            </div><br><br><br>
+            <div class="inputs">
+            <input type="text" id="message" ref="messages" placeholder="Send your message">
+            <button id="enviar" @click="enviarMensajes()" ><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+             </div>
+        </div>
+        <div v-show="objeto['login']">
+        
+             <button id="signIn" @click="login()">Sign in with <i class="fa fa-google" aria-hidden="true"></i></button>
+        
+        </div>
+        
+        
+
+        
+    </div>
+
+
+    <!-- Import and configure the Firebase SDK -->
+    <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+    <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+    <!-- Firebase App is always required and must be first -->
+    <script src="/__/firebase/5.8.5/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="/__/firebase/5.8.5/firebase-auth.js"></script>
+    <script src="/__/firebase/5.8.5/firebase-database.js"></script>
+    <script src="/__/firebase/5.8.5/firebase-firestore.js"></script>
+    <script src="/__/firebase/5.8.5/firebase-messaging.js"></script>
+    <script src="/__/firebase/5.8.5/firebase-functions.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="JS/main.js"></script>
+    <!--    <script type="text/javascript" src="JS/main2.js"></script>-->
+
+    <!--
+    <script>
+        //        // Initialize Firebase
+        //        var config = {
+        //            apiKey: "AIzaSyDT2rZ9y7QrmppfuWz170l-TDkE1XWzDMM",
+        //            authDomain: "northside-league.firebaseapp.com",
+        //            databaseURL: "https://northside-league.firebaseio.com",
+        //            projectId: "northside-league",
+        //            storageBucket: "northside-league.appspot.com",
+        //            messagingSenderId: "580330758399"
+        //        };
+        //        firebase.initializeApp(config);
+    </script>
+-->
+</body>
+
+</html>
